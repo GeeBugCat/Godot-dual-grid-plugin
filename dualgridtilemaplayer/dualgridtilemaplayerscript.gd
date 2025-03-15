@@ -53,6 +53,16 @@ func  _process(delta: float) -> void:
 
 # 绘制图块
 func set_tile(wor_tile_coord: Vector2i):
+	if !Engine.is_editor_hint():
+		set_cell(wor_tile_coord, 0, Vector2(5,0))
+	var dis_tile_coords = get_display_tile_coord(wor_tile_coord)
+	for coord in dis_tile_coords:
+		var tile_data = calculate_display_tile(coord)
+		display_grid.set_cell(coord, 0, tile_data.atlas_coord, tile_data.alt_id)
+
+# 擦除图块
+func erase_tile(wor_tile_coord: Vector2i):
+	erase_cell(wor_tile_coord)
 	var dis_tile_coords = get_display_tile_coord(wor_tile_coord)
 	for coord in dis_tile_coords:
 		var tile_data = calculate_display_tile(coord)
